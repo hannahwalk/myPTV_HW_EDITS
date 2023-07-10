@@ -4,7 +4,7 @@
 Code to do basic PIV and send it to myPTV tracking
 
 """
-import Experiment.workflow_HW as wf
+import workflow_HW as wf
 from coarsePIV import runCoarsePIV   
 import matplotlib as plt
         
