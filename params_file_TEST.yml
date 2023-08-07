@@ -1,0 +1,85 @@
+- calibration:
+    camera_name: camR_6_2
+    resolution: 390,560
+    calibration_image: ./Experiment/Calibration/cropRg.bmp
+    target_file: ./Experiment/Calibration/calibR_6_2.txt
+
+- segmentation:
+    Number_of_images: None
+    image_start: 0
+    images_folder: Images_camR
+    single_image_name: gframe0001.bmp
+    image_extension: '.bmp'
+    mask: 1.0
+    ROI: 0, 390, 0, 560
+    plot_result: True
+    threshold: 65
+    median: 3
+    blur_sigma: 1
+    local_filter: None
+    min_xsize: 3.0
+    min_ysize: 3.0
+    min_mass: 10.0
+    max_xsize: 7.0
+    max_ysize: 7.0
+    max_mass: None
+    method: labeling
+    particle_size: 8
+    save_name: ./Experiment/Segmentation/segmentR_6_14_small.txt
+
+- matching:
+    blob_files: ./Segmentation/segmentL_6_9.txt, ./Segmentation/segmentR_6_9.txt
+    frame_start: 0
+    N_frames: None
+    camera_names: camL_6_2, camR_6_2
+    cam_resolution: 390,560
+    ROI: 0, 2.5, -3.5, 0, -7, 3
+    voxel_size: 0.1
+    max_blob_distance: 50
+    max_err: 0.005
+    save_name: ./Matching/match_6_14_small.txt
+
+- tracking:
+    particles_file_name: ./Experiment/Matching/match_6_14_small.txt 
+    frame_start: 0
+    N_frames: 3898
+    d_max: 0.7
+    dv_max: 0.4
+    save_name: ./Experiment/Tracking/traj_8_4_smallnoMF.txt
+
+- calibration_with_particles:
+    camera_name: camR_6_2
+    resolution: 390,560
+    traj_filename: './traj_7_10.txt'
+    cam_number: 1 
+    blobs_fname: 'segmentR_6_7_small.txt'
+    min_traj_len: 4
+    max_point_number: 1000
+    target_file: ./Experiment/Calibration/calibR_6_1.txt
+
+- smoothing:
+    trajectory_file: ./Tracking/traj_8_4_small.txt
+    window_size: 5
+    polynom_order: 3
+    min_traj_length: 4
+    repetitions: 5
+    save_name: ./Smoothing/smooth_8_4_small.txt
+
+- stitching:
+    trajectory_file: ./Smoothing/smooth_8_4_small.txt
+    max_time_separation: 1
+    max_distance: 0.1
+    save_name: ./Stitching/traj_stitched_8_4_small.txt
+
+- 2D_tracking:
+    blob_file: blobs_cam1
+    frame_start: 0
+    N_frames: None
+    camera_name: cam1
+    camera_resolution: 450,500
+    z_particles: 0.0
+    d_max: 1.0
+    dv_max: 1.0
+    save_name: trajectories_2D
+    
+
